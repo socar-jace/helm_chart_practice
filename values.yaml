@@ -1,0 +1,37 @@
+replicas: 1
+
+host: 192.168.99.102
+
+images:
+  imagePullSecrets:
+    - name: docker-hub
+  frontend:
+    name: frontend
+    image: positipman/frontend:latest
+    pullPolicy: Always
+    port: 8000
+    nodePort: 30001
+  api:
+    name: api
+    image: positipman/api:latest
+    pullPolicy: Always
+    port: 8080
+    nodePort: 30002
+  grpc:
+    name: grpc
+    image: positipman/grpc:latest
+    pullPolicy: Always
+    port: 6565
+
+service:
+  extraAnnotations: {}
+  type: NodePort
+
+ingress:
+  extraAnnotations:
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "*"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"

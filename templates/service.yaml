@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kotlin-service
+  annotation:
+{{- if .Values.service.extraAnnotations }}
+{{ toYaml .Values.service.extraAnnotations | indent 4 }}
+{{- end }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+  - port: 80
+    name: http
+    targetPort: {{ .Values.images.frontend.port }}
+    protocol: TCP
+    nodePort: {{ .Values.images.frontend.nodePort }}
+  - port: {{ .Values.images.api.port }}
+    name: {{ .Values.images.api.name }}
+    targetPort: {{ .Values.images.api.port }}
+    protocol: TCP
+    nodePort: {{ .Values.images.api.nodePort }}
+  selector:
+    app: kotlin-pod

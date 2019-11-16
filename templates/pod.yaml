@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kotlin-pod
+  labels:
+    app: kotlin-pod
+spec:
+  containers:
+    - name: {{ .Values.images.api.name }}
+      image: {{ .Values.images.api.image }}
+      ports:
+        - containerPort: {{ .Values.images.api.port }}
+    - name: {{ .Values.images.grpc.name }}
+      image: {{ .Values.images.grpc.image }}
+      ports:
+        - containerPort: {{ .Values.images.grpc.port }}
+    - name: {{ .Values.images.frontend.name }}
+      image: {{ .Values.images.frontend.image }}
+      ports:
+        - containerPort: {{ .Values.images.frontend.port }}
+
+  restartPolicy: Always

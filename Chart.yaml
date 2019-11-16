@@ -1,0 +1,8 @@
+apiVersion: v2
+description: kotlin minikube project
+name: helm-chart-kotlin
+version: 0.0.1
+appVersion: 0.0.1
+maintainers:
+  - name: SOCAR TD jace
+    email: jace@socar.kr
